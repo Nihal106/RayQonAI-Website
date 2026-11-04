@@ -1,0 +1,43 @@
+<svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rayqonFaviconGrad" x1="15%" y1="15%" x2="85%" y2="85%">
+      <stop offset="0%" stopColor="#38bdf8" />
+      <stop offset="50%" stopColor="#0ea5e9" />
+      <stop offset="100%" stopColor="#22c55e" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M 28 42 C 22 42, 18 36, 20 30 C 22 22, 32 20, 36 24 C 40 16, 56 14, 64 22 C 72 20, 82 25, 80 34 C 82 40, 76 45, 72 44"
+    stroke="url(#rayqonFaviconGrad)"
+    stroke-width="5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+  <path
+    d="M 50 48 C 42 38, 30 38, 25 46 C 20 54, 30 62, 38 60 C 46 58, 54 44, 62 42 C 70 40, 80 48, 75 56 C 70 64, 58 64, 50 48 Z"
+    stroke="url(#rayqonFaviconGrad)"
+    stroke-width="5.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    fill="none"
+  />
+  <g>
+    <line x1="26" y1="58" x2="16" y2="68" stroke="#38bdf8" stroke-width="2.5" />
+    <line x1="16" y1="68" x2="26" y2="80" stroke="#38bdf8" stroke-width="2.5" />
+    <line x1="26" y1="80" x2="34" y2="70" stroke="#0ea5e9" stroke-width="2.5" />
+    <circle cx="26" cy="58" r="4" fill="#38bdf8" />
+    <circle cx="16" cy="68" r="4.2" fill="#38bdf8" />
+    <circle cx="26" cy="80" r="4.5" fill="#38bdf8" />
+    <circle cx="34" cy="70" r="3.8" fill="#0ea5e9" />
+  </g>
+  <g>
+    <line x1="68" y1="60" x2="78" y2="72" stroke="#22c55e" stroke-width="2.5" />
+    <line x1="78" y1="72" x2="88" y2="82" stroke="#22c55e" stroke-width="2.5" />
+    <line x1="78" y1="72" x2="72" y2="85" stroke="#10b981" stroke-width="2.5" />
+    <circle cx="68" cy="60" r="4" fill="#22c55e" />
+    <circle cx="78" cy="72" r="4.2" fill="#22c55e" />
+    <circle cx="88" cy="82" r="3.8" fill="#4ade80" />
+    <circle cx="72" cy="85" r="4.5" fill="#10b981" />
+  </g>
+</svg>
