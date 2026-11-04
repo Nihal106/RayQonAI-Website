@@ -48,7 +48,16 @@ function App() {
     window.addEventListener('popstate', onPopState)
     return () => window.removeEventListener('popstate', onPopState)
   }, [])
-  useEffect(() => { window.scrollTo(0, 0) }, [path])
+  useEffect(() => {
+    if (path === '/contact') {
+      const frame = window.requestAnimationFrame(() => {
+        const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+        document.getElementById('contact-form')?.scrollIntoView({ behavior, block: 'start' })
+      })
+      return () => window.cancelAnimationFrame(frame)
+    }
+    window.scrollTo(0, 0)
+  }, [path])
   useEffect(() => {
     const title = path === '/' ? 'Rayqon AI | Thoughtful technology. Great engineering.' : `${pages[path]?.label || 'Rayqon AI'} | Rayqon AI`
     document.title = title

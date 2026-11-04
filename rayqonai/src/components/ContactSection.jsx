@@ -23,6 +23,7 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
 
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submissionError, setSubmissionError] = useState('')
 
   const serviceOptions = [
     'Software Development & Digital Engineering',
@@ -43,13 +44,44 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
     'Ongoing Managed Support / Retainer'
   ]
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
+    setSubmissionError('')
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY
+    if (!accessKey || accessKey === 'your_access_key_here') {
+      setSubmissionError('Online form delivery is not configured. Set VITE_WEB3FORMS_ACCESS_KEY in rayqonai/.env.local and restart the dev server, or email contact@rayqonai.com.')
+      return
+    }
+
     setIsSubmitting(true)
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: accessKey,
+          subject: `New Rayqon AI inquiry: ${formData.service}`,
+          from_name: 'Rayqon AI Website',
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          service: formData.service,
+          timeline: formData.timeline,
+          message: formData.message,
+          nda_requested: formData.ndaAgreement ? 'Yes' : 'No',
+          botcheck: '',
+        }),
+      })
+      const result = await response.json()
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || 'Your inquiry could not be sent. Please try again.')
+      }
       setIsSubmitted(true)
-    }, 1000)
+    } catch (error) {
+      setSubmissionError(error.message || 'We could not send your inquiry. Please email contact@rayqonai.com instead.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -91,7 +123,7 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
               </p>
               <div className="pt-2">
                 <a
-                  href="mailto:contact@rayqon.ai?subject=Architecture%20Discovery%20Session%20Request"
+                  href="mailto:contact@rayqonai.com?subject=Architecture%20Discovery%20Session%20Request"
                   className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white text-xs font-mono font-medium transition-all"
                 >
                   <Mail className="w-3.5 h-3.5 text-cyan-400" />
@@ -153,7 +185,7 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
           </div>
 
           {/* Right Column: Clean, Intuitive Inquiry Form */}
-          <div className="lg:col-span-7">
+          <div id="contact-form" className="lg:col-span-7 scroll-mt-28">
             <div className="p-8 rounded-2xl glass-panel border border-slate-800 bg-slate-950/80 relative shadow-2xl">
               {isSubmitted ? (
                 <div className="text-center py-12 space-y-5">
@@ -162,13 +194,13 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
                   </div>
                   <div className="space-y-2">
                     <div className="text-xs font-mono text-cyan-400 bg-cyan-950/70 px-3 py-1 rounded-full inline-block border border-cyan-800">
-                      DISPATCH CONFIRMED // TICKET #RQ-9284
+                      INQUIRY SENT TO THE RAYQON AI TEAM
                     </div>
                     <h3 className="text-2xl font-display font-bold text-white">
                       Scope Received Successfully
                     </h3>
                     <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-                      Thank you, <strong className="text-white">{formData.name}</strong>. A Solutions Architect at Rayqon AI has been assigned to your inquiry and will reach out to <strong className="text-cyan-300">{formData.email}</strong> within 24 hours.
+                      Thank you, <strong className="text-white">{formData.name}</strong>. Your inquiry was delivered successfully. Our team will follow up at <strong className="text-cyan-300">{formData.email}</strong>.
                     </p>
                   </div>
                   <button
@@ -191,6 +223,7 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-mono font-medium text-slate-300 mb-1.5 uppercase">
@@ -309,6 +342,7 @@ export default function ContactSection({ prefilledService, prefilledScope }) {
                       </>
                     )}
                   </button>
+                  {submissionError && <p className="text-sm text-rose-500" role="alert">{submissionError}</p>}
                 </form>
               )}
             </div>
