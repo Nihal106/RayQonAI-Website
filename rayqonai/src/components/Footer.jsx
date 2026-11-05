@@ -1,13 +1,13 @@
 import RayqonLogo from './RayqonLogo'
-import { ArrowUpRight, Mail } from 'lucide-react'
+import { ArrowUpRight, Mail, Share2 } from 'lucide-react'
 
 const footerLinks = [
-  { label: 'Services', href: '/services' },
-  { label: 'Our work', href: '/work' },
-  { label: 'How we work', href: '/approach' },
-  { label: 'Academy', href: '/academy' },
-  { label: 'Project planner', href: '/estimate' },
-  { label: 'Brand identity', href: '/brand' },
+  { label: 'Engineering Services', href: '/services' },
+  { label: 'Client Case Studies', href: '/work' },
+  { label: 'Delivery Methodology', href: '/approach' },
+  { label: 'Talent Academy', href: '/academy' },
+  { label: 'Interactive Scope Planner', href: '/estimate' },
+  { label: 'Brand Identity Kit', href: '/brand' },
 ]
 
 function LinkedinIcon(props) {
@@ -26,6 +26,14 @@ function GithubIcon(props) {
   )
 }
 
+function XIcon(props) {
+  return (
+    <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true" {...props}>
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    </svg>
+  )
+}
+
 export default function Footer() {
   return <footer className="border-t border-white/[.08] bg-[#070a09] text-slate-400">
     <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 md:grid-cols-[1.3fr_.7fr] md:items-end">
@@ -33,6 +41,8 @@ export default function Footer() {
         <a href="/" aria-label="Rayqon AI home"><RayqonLogo size="md" /></a>
         <p className="mt-5 max-w-md text-sm leading-7 text-slate-500">A technology partner for teams building what’s next. Thoughtful software, cloud, AI, and engineering.</p>
         <p className="mt-5 text-[11px] tracking-wide text-slate-600">REMOTE FIRST <span className="px-2">·</span> UAE & GLOBAL</p>
+        
+        {/* Social Profiles */}
         <div className="mt-6 flex flex-wrap items-center gap-4 text-xs">
           <span className="text-slate-500 font-mono text-[11px]">CONNECT</span>
           <a href="https://www.linkedin.com/company/rayqonai" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-slate-400 transition hover:text-lime-200">
@@ -45,17 +55,31 @@ export default function Footer() {
             <span>GitHub</span>
           </a>
           <span className="text-slate-700">·</span>
+          <a href="https://x.com/rayqonai" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-slate-400 transition hover:text-lime-200">
+            <XIcon />
+            <span>X (Twitter)</span>
+          </a>
+          <span className="text-slate-700">·</span>
           <a href="mailto:contact@rayqonai.com" className="inline-flex items-center gap-1.5 text-slate-400 transition hover:text-lime-200">
             <Mail size={14} />
             <span>contact@rayqonai.com</span>
           </a>
         </div>
+
+        {/* Share buttons */}
+        <div className="mt-3 flex flex-wrap items-center gap-2 text-[11px] text-slate-500">
+          <span className="font-mono inline-flex items-center gap-1"><Share2 size={11} /> SHARE:</span>
+          <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.rayqonai.com%2F" target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-300 transition">LinkedIn</a>
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.rayqonai.com%2F&text=Rayqon%20AI%20-%20Enterprise%20Software%2C%20Cloud%20%26%20AI%20Engineering" target="_blank" rel="noopener noreferrer" className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-300 transition">X (Twitter)</a>
+        </div>
       </div>
+      
       <div className="grid grid-cols-2 gap-x-7 gap-y-4 text-sm">
         {footerLinks.map((link) => <a key={link.href} href={link.href} className="transition hover:text-lime-200">{link.label}</a>)}
         <a href="/contact" className="inline-flex items-center gap-1 text-lime-200 hover:text-lime-100">Get in touch <ArrowUpRight size={13}/></a>
       </div>
     </div>
+    
     <div className="border-t border-white/[.06]">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-5 text-[11px] text-slate-600 sm:px-8">
         <span>© {new Date().getFullYear()} Rayqon AI. All rights reserved.</span>

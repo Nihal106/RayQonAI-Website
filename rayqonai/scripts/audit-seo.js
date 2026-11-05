@@ -12,55 +12,64 @@ console.log('=== SEO AUDIT OF DIST/INDEX.HTML ===')
 
 // Title
 const title = html.match(/<title>(.*?)<\/title>/i)?.[1]
-console.log('1. Title:', title)
+console.log('1. Title:', title, `(${title?.length} chars)`)
 
 // Meta Description
 const desc = html.match(/<meta[^>]*name=["']description["'][^>]*content=["'](.*?)["']/i)?.[1]
-console.log('2. Meta Description:', desc)
+console.log('2. Meta Description:', desc, `(${desc?.length} chars)`)
 
 // Canonical
 const canonical = html.match(/<link[^>]*rel=["']canonical["'][^>]*href=["'](.*?)["']/i)?.[1]
 console.log('3. Canonical URL:', canonical)
 
-// Language
-const lang = html.match(/<html[^>]*lang=["'](.*?)["']/i)?.[1]
-console.log('4. HTML Language:', lang)
+// Apple touch icon
+const appleTouchIcon = html.match(/<link[^>]*rel=["']apple-touch-icon["'][^>]*>/i)?.[0]
+console.log('4. Apple Touch Icon:', appleTouchIcon || 'MISSING')
 
 // H1 Heading
 const h1s = [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/gi)].map(m => m[1].replace(/<[^>]+>/g, '').trim())
 console.log('5. H1 Count:', h1s.length, '=>', h1s)
 
-// H2 Headings
-const h2s = [...html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/gi)].map(m => m[1].replace(/<[^>]+>/g, '').trim())
-console.log('6. H2 Count:', h2s.length, '=>', h2s)
+// Anchor text analysis
+const linkRegex = /<a[^>]*href=["'](.*?)["'][^>]*>([\s\S]*?)<\/a>/gi
+const matches = [...html.matchAll(linkRegex)]
+const anchorMap = {}
+for (const m of matches) {
+  const href = m[1]
+  const text = m[2].replace(/<[^>]+>/g, '').trim()
+  if (!anchorMap[text]) anchorMap[text] = []
+  anchorMap[text].push(href)
+}
+console.log('6. Anchor Texts Used Multiple Times:')
+for (const [text, hrefs] of Object.entries(anchorMap)) {
+  if (hrefs.length > 1) {
+    console.log(`   - "${text}" (${hrefs.length}x) ->`, [...new Set(hrefs)])
+  }
+}
 
-// H3 Headings
-const h3s = [...html.matchAll(/<h3[^>]*>([\s\S]*?)<\/h3>/gi)].map(m => m[1].replace(/<[^>]+>/g, '').trim())
-console.log('7. H3 Count:', h3s.length)
-
-// Links
-const allLinks = [...html.matchAll(/<a[^>]*href=["'](.*?)["'][^>]*>/gi)].map(m => m[1])
-const internal = allLinks.filter(href => href.startsWith('/') || href.startsWith('#'))
-const external = allLinks.filter(href => href.startsWith('http') || href.startsWith('mailto'))
-console.log('8. Total Links:', allLinks.length)
-console.log('   Internal Links:', internal.length)
-console.log('   External Links:', external.length, '=>', external)
-
-// Word count in rendered body
+// Keyword overlap between Title, H1, Description, and Body
 const bodyHtml = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] || html
 const cleanText = bodyHtml
   .replace(/<script[\s\S]*?<\/script>/gi, '')
   .replace(/<style[\s\S]*?<\/style>/gi, '')
   .replace(/<noscript[\s\S]*?<\/noscript>/gi, '')
   .replace(/<[^>]+>/g, ' ')
+  .replace(/[.,/#!$%^&*;:{}=\-_`~()]/g, ' ')
   .replace(/\s+/g, ' ')
-  .trim()
-const words = cleanText.split(' ').filter(w => w.length > 0)
-console.log('9. Clean Word Count:', words.length)
+  .toLowerCase()
 
-// Check robots.txt and sitemap.xml
-const robots = fs.existsSync(path.resolve(__dirname, '../dist/robots.txt'))
-const sitemap = fs.existsSync(path.resolve(__dirname, '../dist/sitemap.xml'))
-console.log('10. robots.txt exists:', robots)
-console.log('11. sitemap.xml exists:', sitemap)
+const h1Words = (h1s[0] || '').toLowerCase().replace(/[^a-z0-9 ]/g, '').split(/\s+/).filter(w => w.length > 3)
+console.log('7. H1 Significant Words & Frequencies in Body:')
+for (const word of h1Words) {
+  const count = (cleanText.match(new RegExp('\\b' + word + '\\b', 'g')) || []).length
+  console.log(`   - "${word}": ${count} times`)
+}
+
+const titleWords = (title || '').toLowerCase().replace(/[^a-z0-9 ]/g, '').split(/\s+/).filter(w => w.length > 3)
+console.log('8. Title Significant Words & Frequencies in Body:')
+for (const word of titleWords) {
+  const count = (cleanText.match(new RegExp('\\b' + word + '\\b', 'g')) || []).length
+  console.log(`   - "${word}": ${count} times`)
+}
+
 console.log('=== AUDIT COMPLETE ===')

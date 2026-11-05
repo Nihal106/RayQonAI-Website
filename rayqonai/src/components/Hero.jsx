@@ -15,8 +15,8 @@ export default function Hero({ onContactClick = () => { window.location.href = '
       <div className="hero-content relative z-10 mx-auto max-w-7xl px-5 sm:px-8">
         <div className="hero-copy">
           <div className="eyebrow"><span className="eyebrow-dot" /> INDEPENDENT TECHNOLOGY PARTNER <span className="eyebrow-line" /> UAE · GLOBAL</div>
-          <h1>Good ideas deserve<br /> <span>great engineering.</span></h1>
-          <p className="hero-lede">We help ambitious teams turn complex technology into products and platforms people can rely on.</p>
+          <h1>Enterprise Software, Cloud<br /> <span>&amp; AI Engineering Solutions.</span></h1>
+          <p className="hero-lede">Good ideas deserve great engineering. We help ambitious teams turn complex technology into dependable products and scalable platforms.</p>
           <div className="hero-actions">
             <a className="button-primary" href="/contact" onClick={(event) => { event.preventDefault(); onContactClick() }}>Let us talk about your project <ArrowRight size={17} /></a>
             <a className="button-quiet" href="#blueprints">See how we work <ArrowUpRight size={16} /></a>

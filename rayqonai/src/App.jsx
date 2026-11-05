@@ -15,7 +15,7 @@ import Footer from './components/Footer'
 import { ArrowRight, ArrowUp } from 'lucide-react'
 
 const pages = {
-  '/': { label: 'Home', title: 'Technology that moves your business forward.', description: 'From ambitious idea to dependable product, meet the team that makes complex technology feel clear.' },
+  '/': { label: 'Home', title: 'Enterprise Software, Cloud & AI Engineering Solutions', description: 'Rayqon AI is an enterprise technology partner delivering custom software, cloud architecture, DevOps, AI engineering, and cybersecurity solutions.' },
   '/services': { label: 'Services', title: 'The right expertise, right when you need it.', description: 'A focused set of engineering capabilities to help you design, build, secure, and grow.' },
   '/work': { label: 'Our work', title: 'Built for the real world.', description: 'Explore the challenges, decisions, and measurable outcomes behind our work.' },
   '/approach': { label: 'How we work', title: 'A clear path from idea to impact.', description: 'Collaborative delivery, practical architecture, and a team that stays accountable.' },
@@ -59,7 +59,7 @@ function App() {
     window.scrollTo(0, 0)
   }, [path])
   useEffect(() => {
-    const title = path === '/' ? 'Rayqon AI | Thoughtful technology. Great engineering.' : `${pages[path]?.label || 'Rayqon AI'} | Rayqon AI`
+    const title = path === '/' ? 'Rayqon AI | Enterprise Software, Cloud & AI Engineering Solutions' : `${pages[path]?.label || 'Rayqon AI'} | Rayqon AI`
     document.title = title
     let description = document.querySelector('meta[name="description"]')
     if (!description) {
