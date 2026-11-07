@@ -9,7 +9,7 @@ const distDir = path.resolve(__dirname, '../dist')
 const routes = [
   {
     path: '/services',
-    title: 'Services | Rayqon AI - Enterprise Engineering & Technology Solutions',
+    title: 'Services | Rayqon AI - Enterprise Engineering Solutions',
     description: 'Explore Rayqon AI engineering services: Software development, cloud architecture, DevOps, applied AI, cybersecurity, and data intelligence.',
     heading: 'The right expertise, right when you need it.',
     eyebrow: 'RAYQON AI / SERVICES',
@@ -51,7 +51,7 @@ const routes = [
   },
   {
     path: '/work',
-    title: 'Our Work | Rayqon AI - Case Studies & Engineering Solutions',
+    title: 'Our Work | Rayqon AI - Engineering Case Studies',
     description: 'Explore the engineering challenges, architectural decisions, and measurable outcomes behind Rayqon AI client projects.',
     heading: 'Built for the real world.',
     eyebrow: 'RAYQON AI / OUR WORK',
@@ -81,7 +81,7 @@ const routes = [
   },
   {
     path: '/approach',
-    title: 'How We Work | Rayqon AI - Delivery Process & Architecture',
+    title: 'How We Work | Rayqon AI - Delivery Architecture',
     description: 'A clear path from idea to impact. Collaborative delivery, practical architecture, and an engineering team that stays accountable.',
     heading: 'A clear path from idea to impact.',
     eyebrow: 'RAYQON AI / HOW WE WORK',
@@ -115,7 +115,7 @@ const routes = [
   },
   {
     path: '/academy',
-    title: 'Academy | Rayqon AI - Engineering Training & Internships',
+    title: 'Academy | Rayqon AI - Engineering Training',
     description: 'Practical training and early career programmes built around real technology work and production engineering standards.',
     heading: 'Make room for what’s next.',
     eyebrow: 'RAYQON AI / ACADEMY',
@@ -179,7 +179,7 @@ const routes = [
   },
   {
     path: '/contact',
-    title: 'Contact Us | Rayqon AI - Let’s Build Something That Matters',
+    title: 'Contact Us | Rayqon AI - Enterprise Solutions',
     description: 'Contact Rayqon AI to discuss software development, cloud infrastructure, AI solutions, or request a 15-minute architecture call.',
     heading: 'Let’s make something matter.',
     eyebrow: 'RAYQON AI / CONTACT',
